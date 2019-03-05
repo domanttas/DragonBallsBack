@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class UserServiceValidator {
 
-    public void areInputFieldsValid(User user)
+    public boolean areInputFieldsValid(User user)
             throws UsernameNotValidException, UserPasswordNotValidException {
 
         if (user.getUsername().length() < 5) {
@@ -18,5 +18,7 @@ public class UserServiceValidator {
         } else if (!Pattern.matches("^[a-zA-Z0-9]*$", user.getPasswordHash())) {
             throw new UserPasswordNotValidException();
         }
+
+        return true;
     }
 }
