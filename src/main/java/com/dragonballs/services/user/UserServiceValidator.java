@@ -1,6 +1,7 @@
 package com.dragonballs.services.user;
 
 import com.dragonballs.entities.User;
+import com.dragonballs.exceptions.UserEmailNotValidException;
 import com.dragonballs.exceptions.UserPasswordNotValidException;
 import com.dragonballs.exceptions.UsernameNotValidException;
 
@@ -9,7 +10,7 @@ import java.util.regex.Pattern;
 public class UserServiceValidator {
 
     public void areInputFieldsValid(User user)
-            throws UsernameNotValidException, UserPasswordNotValidException {
+            throws UsernameNotValidException, UserPasswordNotValidException, UserEmailNotValidException {
 
         if (user.getUsername().length() < 5) {
             throw new UsernameNotValidException();
@@ -17,6 +18,8 @@ public class UserServiceValidator {
             throw new UserPasswordNotValidException();
         } else if (!Pattern.matches("^[a-zA-Z0-9]*$", user.getPasswordHash())) {
             throw new UserPasswordNotValidException();
+        } else if (!Pattern.matches("\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b", user.getEmail())) {
+            throw new UserEmailNotValidException();
         }
     }
 }
