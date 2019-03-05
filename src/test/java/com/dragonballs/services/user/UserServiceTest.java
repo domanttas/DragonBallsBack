@@ -3,6 +3,7 @@ package com.dragonballs.services.user;
 import com.dragonballs.dao.UserDAO;
 import com.dragonballs.entities.User;
 import com.dragonballs.exceptions.UserExistsException;
+import com.dragonballs.exceptions.UserPasswordNotValidException;
 import com.dragonballs.exceptions.UsernameNotValidException;
 import com.dragonballs.services.user.UserService;
 import org.junit.Assert;
@@ -114,4 +115,53 @@ public class UserServiceTest {
         User actualUser = userService.registerUser(fakeUser);
     }
 
+    @Test
+    public void registerUser_should_throw_password_below_bottom_margin() {
+        //Arrange
+        String expectedEmail = "test123@gmail.com";
+        String expectedUsername = "test1234";
+        String password = "123";
+
+        User fakeUser = new User();
+
+        fakeUser.setUsername(expectedUsername);
+        fakeUser.setEmail(expectedEmail);
+        fakeUser.setPasswordHash(password);
+
+        User savedUser = new User();
+
+        Mockito.when(userServiceValidator.areInputFieldsValid(fakeUser)).thenThrow(UserPasswordNotValidException.class);
+
+        thrownException.expect(UserPasswordNotValidException.class);
+
+        //Act and assert
+        thrownException.expect(UserPasswordNotValidException.class);
+
+        User actualUser = userService.registerUser(fakeUser);
+    }
+
+    @Test
+    public void registerUser_should_throw_password_above_bottom_margin() {
+        //Arrange
+        String expectedEmail = "test123@gmail.com";
+        String expectedUsername = "test1234";
+        String password = "12345678913545555555";
+
+        User fakeUser = new User();
+
+        fakeUser.setUsername(expectedUsername);
+        fakeUser.setEmail(expectedEmail);
+        fakeUser.setPasswordHash(password);
+
+        User savedUser = new User();
+
+        Mockito.when(userServiceValidator.areInputFieldsValid(fakeUser)).thenThrow(UserPasswordNotValidException.class);
+
+        thrownException.expect(UserPasswordNotValidException.class);
+
+        //Act and assert
+        thrownException.expect(UserPasswordNotValidException.class);
+
+        User actualUser = userService.registerUser(fakeUser);
+    }
 }
