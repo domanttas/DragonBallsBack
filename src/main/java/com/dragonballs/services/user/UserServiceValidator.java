@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class UserServiceValidator {
 
-    public void areInputFieldsValid(User user)
+    public boolean areInputFieldsValid(User user)
             throws UsernameNotValidException, UserPasswordNotValidException, UserEmailNotValidException {
 
         if (user.getUsername().length() < 5) {
@@ -21,5 +21,7 @@ public class UserServiceValidator {
         } else if (!Pattern.matches("\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b", user.getEmail())) {
             throw new UserEmailNotValidException();
         }
+
+        return true;
     }
 }
