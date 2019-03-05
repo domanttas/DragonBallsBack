@@ -141,7 +141,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void registerUser_should_throw_password_above_bottom_margin() {
+    public void registerUser_should_throw_password_above_upper_margin() {
         //Arrange
         String expectedEmail = "test123@gmail.com";
         String expectedUsername = "test1234";
