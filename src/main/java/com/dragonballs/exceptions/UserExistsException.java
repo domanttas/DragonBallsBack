@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "User already exists")
 public class UserExistsException extends RuntimeException {
-    public UserExistsException() {
+    public UserExistsException(String message) {
+        super(message);
     }
 }

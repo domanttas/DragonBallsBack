@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "User email is not valid")
 public class UserEmailNotValidException extends RuntimeException {
-    public UserEmailNotValidException(){
+    public UserEmailNotValidException(String message) {
+        super(message);
     }
 }

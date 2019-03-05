@@ -32,7 +32,7 @@ public class UserService {
         User existingUser = userDAO.findByEmail(user.getEmail());
 
         if (existingUser != null) {
-            throw new UserExistsException();
+            throw new UserExistsException("User already exists");
         } else {
             user.setPasswordHash(bCryptPasswordEncoder.encode(user.getPasswordHash()));
 
