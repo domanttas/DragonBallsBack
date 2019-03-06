@@ -2,10 +2,7 @@ package com.dragonballs.services.user;
 
 import com.dragonballs.dao.UserDAO;
 import com.dragonballs.entities.User;
-import com.dragonballs.exceptions.UserEmailNotValidException;
-import com.dragonballs.exceptions.UserExistsException;
-import com.dragonballs.exceptions.UserPasswordNotValidException;
-import com.dragonballs.exceptions.UsernameNotValidException;
+import com.dragonballs.exceptions.*;
 import com.dragonballs.services.user.UserService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -89,7 +86,7 @@ public class UserServiceTest {
         Mockito.when(userDAO.findByEmail(expectedEmail)).thenReturn(fakeUser);
 
         //Act and assert
-        thrownException.expect(UserExistsException.class);
+        thrownException.expect(UserException.class);
 
         User actualUser = userService.registerUser(fakeUser);
     }
@@ -109,12 +106,10 @@ public class UserServiceTest {
 
         User savedUser = new User();
 
-        Mockito.when(userServiceValidator.areInputFieldsValid(fakeUser)).thenThrow(UsernameNotValidException.class);
-
-        thrownException.expect(UsernameNotValidException.class);
+        Mockito.when(userServiceValidator.areInputFieldsValid(fakeUser)).thenThrow(UserException.class);
 
         //Act and assert
-        thrownException.expect(UsernameNotValidException.class);
+        thrownException.expect(UserException.class);
 
         User actualUser = userService.registerUser(fakeUser);
     }
@@ -134,12 +129,10 @@ public class UserServiceTest {
 
         User savedUser = new User();
 
-        Mockito.when(userServiceValidator.areInputFieldsValid(fakeUser)).thenThrow(UserPasswordNotValidException.class);
-
-        thrownException.expect(UserPasswordNotValidException.class);
+        Mockito.when(userServiceValidator.areInputFieldsValid(fakeUser)).thenThrow(UserException.class);
 
         //Act and assert
-        thrownException.expect(UserPasswordNotValidException.class);
+        thrownException.expect(UserException.class);
 
         User actualUser = userService.registerUser(fakeUser);
     }
@@ -159,12 +152,10 @@ public class UserServiceTest {
 
         User savedUser = new User();
 
-        Mockito.when(userServiceValidator.areInputFieldsValid(fakeUser)).thenThrow(UserPasswordNotValidException.class);
-
-        thrownException.expect(UserPasswordNotValidException.class);
+        Mockito.when(userServiceValidator.areInputFieldsValid(fakeUser)).thenThrow(UserException.class);
 
         //Act and assert
-        thrownException.expect(UserPasswordNotValidException.class);
+        thrownException.expect(UserException.class);
 
         User actualUser = userService.registerUser(fakeUser);
     }
@@ -184,10 +175,10 @@ public class UserServiceTest {
 
         User savedUser = new User();
 
-        Mockito.when(userServiceValidator.areInputFieldsValid(fakeUser)).thenThrow(UserPasswordNotValidException.class);
+        Mockito.when(userServiceValidator.areInputFieldsValid(fakeUser)).thenThrow(UserException.class);
 
         //Act and assert
-        thrownException.expect(UserPasswordNotValidException.class);
+        thrownException.expect(UserException.class);
 
         User actualUser = userService.registerUser(fakeUser);
     }
@@ -207,10 +198,10 @@ public class UserServiceTest {
 
         User savedUser = new User();
 
-        Mockito.when(userServiceValidator.areInputFieldsValid(fakeUser)).thenThrow(UserEmailNotValidException.class);
+        Mockito.when(userServiceValidator.areInputFieldsValid(fakeUser)).thenThrow(UserException.class);
 
         //Act and assert
-        thrownException.expect(UserEmailNotValidException.class);
+        thrownException.expect(UserException.class);
 
         User actualUser = userService.registerUser(fakeUser);
     }

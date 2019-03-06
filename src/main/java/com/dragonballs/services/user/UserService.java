@@ -2,9 +2,7 @@ package com.dragonballs.services.user;
 
 import com.dragonballs.dao.UserDAO;
 import com.dragonballs.entities.User;
-import com.dragonballs.exceptions.UserExistsException;
-import com.dragonballs.exceptions.UserPasswordNotValidException;
-import com.dragonballs.exceptions.UsernameNotValidException;
+import com.dragonballs.exceptions.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,7 +30,7 @@ public class UserService {
         User existingUser = userDAO.findByEmail(user.getEmail());
 
         if (existingUser != null) {
-            throw new UserExistsException("User already exists");
+            throw new UserException("User already exists");
         } else {
             user.setPasswordHash(bCryptPasswordEncoder.encode(user.getPasswordHash()));
 
