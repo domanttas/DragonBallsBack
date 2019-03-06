@@ -48,13 +48,14 @@ public class UserControllerTest {
 
     @Test
     public void createResponse_fetchUsers(){
-        User user = new User();
-        Mockito.when(userService.registerUser(user)).thenReturn(user);
 
-        ResponseEntity responseEntity = userController.registerUser(user);
+        List<User> users = new ArrayList<>();
+        Mockito.when(userService.getUsers()).thenReturn(users);
 
-        boolean isListEmpty = responseEntity.hasBody();
+        List<User> responseEntity = userController.getUsers();
 
-        Assert.assertEquals(false, isListEmpty);
+        boolean isListEmpty = responseEntity.isEmpty();
+
+        Assert.assertEquals(true, isListEmpty);
     }
 }
