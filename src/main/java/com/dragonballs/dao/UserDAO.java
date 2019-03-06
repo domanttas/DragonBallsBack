@@ -21,6 +21,14 @@ public class UserDAO {
         return userRepository.findByEmail(email);
     }
 
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public User findBySessionToken(String sessionToken) {
+        return userRepository.findBySessionToken(sessionToken);
+    }
+
     public Iterable<User> getAllUsers() {
         return userRepository.findAll();
     }
