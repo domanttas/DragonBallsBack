@@ -17,15 +17,15 @@ public class UserService {
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private UserServiceValidator userServiceValidator;
+    private UserValidator userValidator;
 
     public UserService() {
         bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        userServiceValidator = new UserServiceValidator();
+        userValidator = new UserValidator();
     }
 
     public User registerUser(User user) {
-        userServiceValidator.areInputFieldsValid(user);
+        userValidator.validate(user);
 
         User existingUser = userDAO.findByEmail(user.getEmail());
 
