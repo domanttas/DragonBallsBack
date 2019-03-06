@@ -48,6 +48,23 @@ public class UserService {
         return users;
     }
 
+    public void validateUser(User user) {
+        User existingUser = userDAO.findByUsername(user.getUsername());
+
+        if (existingUser == null) {
+            throw new UserException("User does not exist");
+        }
+
+        if (!bCryptPasswordEncoder.matches(user.getPasswordHash(), existingUser.getPasswordHash())) {
+            throw new UserException("Password is incorrect");
+        }
+    }
+
+    public User getUserByUsername(String username) {
+        return userDAO.findByUsername(username);
+    }
+
+    /*
     public User createSessionToken(User user) {
         User existingUser = userDAO.findByUsername(user.getUsername());
 
@@ -80,5 +97,6 @@ public class UserService {
 
         return true;
     }
+    */
 
 }
