@@ -1,4 +1,4 @@
-package com.dragonballs.services.user;
+package com.dragonballs.services.authentication;
 
 import java.io.Serializable;
 

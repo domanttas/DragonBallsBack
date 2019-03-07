@@ -1,8 +1,8 @@
 package com.dragonballs.controllers;
 
 import com.dragonballs.entities.User;
-import com.dragonballs.services.user.JwtAuthenticationResponse;
-import com.dragonballs.services.user.JwtTokenUtil;
+import com.dragonballs.services.authentication.JwtAuthenticationResponse;
+import com.dragonballs.services.authentication.JwtTokenUtil;
 import com.dragonballs.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 public class UserController {
+    private int AUTH_TOKEN_SUBSTRING_VALUE = 7;
     @Autowired
     private UserService userService;
 
@@ -47,7 +48,7 @@ public class UserController {
     public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
         String authToken = request.getHeader("Authorization");
 
-        String token = authToken.substring(7);
+        String token = authToken.substring(AUTH_TOKEN_SUBSTRING_VALUE);
         String username = jwtTokenUtil.getUsernameFromToken(token);
 
         User user = userService.getUserByUsername(username);
@@ -62,7 +63,7 @@ public class UserController {
 
     @GetMapping(value = "/api/user")
     public User getAuthenticatedUserByToken(HttpServletRequest request) {
-        String token = request.getHeader("Authorization").substring(7);
+        String token = request.getHeader("Authorization").substring(AUTH_TOKEN_SUBSTRING_VALUE);
         String username = jwtTokenUtil.getUsernameFromToken(token);
 
         return userService.getUserByUsername(username);

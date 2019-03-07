@@ -1,4 +1,4 @@
-package com.dragonballs.services.user;
+package com.dragonballs.services.authentication;
 
 import com.dragonballs.entities.User;
 import io.jsonwebtoken.Claims;
