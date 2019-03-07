@@ -32,6 +32,6 @@ public class UserController {
 
     @GetMapping(value = "/api/user")
     public List<User> getUsers() {
-        return this.userService.getUsers();
+        return userService.getUsers();
     }
 }

@@ -9,9 +9,9 @@ import java.net.URI;
 @Service
 public class UserLocationCreator {
 
-    public URI userLocationCreator(User savedUser){
+    public URI userLocationCreator(User user){
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedUser.getId()).toUri();
+                .buildAndExpand(user.getId()).toUri();
         return location;
     }
 }

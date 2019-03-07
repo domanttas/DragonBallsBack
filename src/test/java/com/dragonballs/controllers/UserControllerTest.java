@@ -12,10 +12,12 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
-import javax.jws.soap.SOAPBinding;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 public class UserControllerTest {
 
@@ -36,23 +38,24 @@ public class UserControllerTest {
     @Test
     public void createResponse_ifUserProvided(){
         User user = new User();
-        Mockito.when(userService.registerUser(user)).thenReturn(user);
+        when(userService.registerUser(user)).thenReturn(user);
 
         URI location = URI.create("location-endpoint");
-        Mockito.when(userLocationCreator.userLocationCreator(user)).thenReturn(location);
+
+        when(userLocationCreator.userLocationCreator(user)).thenReturn(location);
 
         ResponseEntity responseEntity = userController.registerUser(user);
 
-        Assert.assertEquals("[location-endpoint]", responseEntity.getHeaders().get("location").toString());
+        assertEquals("[location-endpoint]", responseEntity.getHeaders().get("location").toString());
     }
 
     @Test
     public void createResponse_fetchUsers(){
         List<User> users = new ArrayList<>();
-        Mockito.when(userService.getUsers()).thenReturn(users);
+        when(userService.getUsers()).thenReturn(users);
 
-        List<User> responseEntity = userController.getUsers();
+        List<User> userList = userController.getUsers();
 
-        Assert.assertEquals(users, responseEntity);
+        assertEquals(users, userList);
     }
 }
