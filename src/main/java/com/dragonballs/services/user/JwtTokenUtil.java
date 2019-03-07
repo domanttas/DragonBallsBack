@@ -9,6 +9,7 @@ import io.jsonwebtoken.impl.DefaultClock;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +18,8 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil implements Serializable {
 
-    private String secret = "testSecret";
+    //private String secret = "testSecret";
+    private final String secret = Base64.getEncoder().encodeToString("TestSecret".getBytes());
 
     private Long expiration = 604800L;
     private Clock clock = DefaultClock.INSTANCE;

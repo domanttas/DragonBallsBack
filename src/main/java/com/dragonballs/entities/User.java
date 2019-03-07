@@ -20,7 +20,6 @@ public class User {
     private String username;
 
     @Column(name = "password_hash")
-    @Transient
     private String passwordHash;
 
     @Column(name = "session_token")

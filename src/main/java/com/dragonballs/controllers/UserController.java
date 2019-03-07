@@ -45,7 +45,7 @@ public class UserController {
 
     @GetMapping(value = "/api/user/refresh")
     public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
-        String authToken = request.getHeader("authorization");
+        String authToken = request.getHeader("Authorization");
 
         String token = authToken.substring(7);
         String username = jwtTokenUtil.getUsernameFromToken(token);
@@ -62,7 +62,7 @@ public class UserController {
 
     @GetMapping(value = "/api/user")
     public User getAuthenticatedUserByToken(HttpServletRequest request) {
-        String token = request.getHeader("authorization").substring(7);
+        String token = request.getHeader("Authorization").substring(7);
         String username = jwtTokenUtil.getUsernameFromToken(token);
 
         return userService.getUserByUsername(username);
