@@ -16,6 +16,13 @@ import java.util.List;
 
 public class UserServiceTest {
 
+    String expectedEmail = "test123@gmail.com";
+    String expectedUsername = "test1234";
+    String password = "12345678";
+
+    User fakeUser;
+    User savedUser;
+
     @Mock
     private UserDAO userDAO;
 
@@ -37,22 +44,16 @@ public class UserServiceTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void registerUser_should_return_registered_user() {
-        //Arrange
-        String expectedEmail = "test123@gmail.com";
-        String expectedUsername = "test1234";
-        String password = "12345678";
-
-        User fakeUser = new User();
+        fakeUser = new User();
+        savedUser = new User();
 
         fakeUser.setUsername(expectedUsername);
         fakeUser.setEmail(expectedEmail);
         fakeUser.setPasswordHash(password);
+    }
 
-        User savedUser = new User();
+    @Test
+    public void registerUser_should_return_registered_user() {
 
         Mockito.when(userDAO.registerUser(userCaptor.capture())).thenReturn(savedUser);
         Mockito.when(bCryptPasswordEncoder.encode(fakeUser.getPasswordHash())).thenReturn("encodedPassword");
@@ -71,16 +72,6 @@ public class UserServiceTest {
 
     @Test
     public void registerUser_should_throw_user_exists() {
-        //Arrange
-        String expectedEmail = "test123@gmail.com";
-        String expectedUsername = "test1234";
-        String password = "12345678";
-
-        User fakeUser = new User();
-
-        fakeUser.setUsername(expectedUsername);
-        fakeUser.setEmail(expectedEmail);
-        fakeUser.setPasswordHash(password);
 
         Mockito.when(userDAO.findByEmail(expectedEmail)).thenReturn(fakeUser);
 
@@ -93,17 +84,9 @@ public class UserServiceTest {
     @Test
     public void registerUser_should_throw_username_not_valid() {
         //Arrange
-        String expectedEmail = "test123@gmail.com";
-        String expectedUsername = "t";
-        String password = "12345678";
-
-        User fakeUser = new User();
+        expectedUsername = "t";
 
         fakeUser.setUsername(expectedUsername);
-        fakeUser.setEmail(expectedEmail);
-        fakeUser.setPasswordHash(password);
-
-        User savedUser = new User();
 
         Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserException.class);
 
@@ -115,18 +98,10 @@ public class UserServiceTest {
 
     @Test
     public void registerUser_should_throw_password_below_bottom_margin() {
-        //Arrange
-        String expectedEmail = "test123@gmail.com";
-        String expectedUsername = "test1234";
-        String password = "123";
+        //Assert
+        password = "123";
 
-        User fakeUser = new User();
-
-        fakeUser.setUsername(expectedUsername);
-        fakeUser.setEmail(expectedEmail);
         fakeUser.setPasswordHash(password);
-
-        User savedUser = new User();
 
         Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserException.class);
 
@@ -139,17 +114,9 @@ public class UserServiceTest {
     @Test
     public void registerUser_should_throw_password_above_upper_margin() {
         //Arrange
-        String expectedEmail = "test123@gmail.com";
-        String expectedUsername = "test1234";
-        String password = "12345678913545555555";
+        password = "12345678913545555555";
 
-        User fakeUser = new User();
-
-        fakeUser.setUsername(expectedUsername);
-        fakeUser.setEmail(expectedEmail);
         fakeUser.setPasswordHash(password);
-
-        User savedUser = new User();
 
         Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserException.class);
 
@@ -162,17 +129,9 @@ public class UserServiceTest {
     @Test
     public void registerUser_should_throw_password_not_alphanumeric() {
         //Arrange
-        String expectedEmail = "test123@gmail.com";
-        String expectedUsername = "test1234";
-        String password = "123456789@";
+        password = "123456789@";
 
-        User fakeUser = new User();
-
-        fakeUser.setUsername(expectedUsername);
-        fakeUser.setEmail(expectedEmail);
         fakeUser.setPasswordHash(password);
-
-        User savedUser = new User();
 
         Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserException.class);
 
@@ -185,17 +144,9 @@ public class UserServiceTest {
     @Test
     public void registerUser_should_throw_invalid_email() {
         //Arrange
-        String expectedEmail = "test123mail.com";
-        String expectedUsername = "test1234";
-        String password = "123456789";
-
-        User fakeUser = new User();
+        expectedEmail = "test123mail.com";
 
         fakeUser.setUsername(expectedUsername);
-        fakeUser.setEmail(expectedEmail);
-        fakeUser.setPasswordHash(password);
-
-        User savedUser = new User();
 
         Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserException.class);
 
@@ -208,16 +159,6 @@ public class UserServiceTest {
     @Test
     public void getUsers_should_return_users() {
         //Arrange
-        String expectedEmail = "test12@gmail.com";
-        String expectedUsername = "test1234";
-        String password = "123456789";
-        User fakeUser = new User();
-
-
-        fakeUser.setUsername(expectedUsername);
-        fakeUser.setEmail(expectedEmail);
-        fakeUser.setPasswordHash(password);
-
         List<User> fakeUsers = new ArrayList<>();
         fakeUsers.add(fakeUser);
 
@@ -227,4 +168,38 @@ public class UserServiceTest {
 
         Assert.assertEquals(actualUsers, fakeUsers);
     }
+
+    @Test
+    public void validateUser_should_check_if_user_exists_and_is_password_is_correct() {
+
+        Mockito.when(userDAO.findByUsername("test1234")).thenReturn(savedUser);
+        Mockito.when(bCryptPasswordEncoder.matches(fakeUser.getPasswordHash(), savedUser.getPasswordHash())).thenReturn(true);
+
+        userService.validateUser(fakeUser);
+    }
+
+    @Test
+    public void validateUser_should_should_not_find_user_in_database() {
+
+        expectedUsername = "fakeUserName";
+
+        Mockito.when(userDAO.findByUsername(expectedUsername)).thenReturn(null);
+
+        Mockito.when(userService.getUserByUsername(expectedUsername)).thenThrow(UserException.class);
+
+        thrownException.expect(UserException.class);
+
+        userService.validateUser(savedUser);
+    }
+
+    @Test
+    public void validateUser_should_throw_not_match_password() {
+
+        Mockito.when(bCryptPasswordEncoder.matches(fakeUser.getPasswordHash(), savedUser.getPasswordHash())).thenReturn(false);
+
+        thrownException.expect(UserException.class);
+
+        userService.validateUser(fakeUser);
+    }
+
 }
