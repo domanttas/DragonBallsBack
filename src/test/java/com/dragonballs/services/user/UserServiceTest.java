@@ -85,7 +85,7 @@ public class UserServiceTest {
         Mockito.when(userDAO.findByEmail(expectedEmail)).thenReturn(fakeUser);
 
         //Act and assert
-        thrownException.expect(UserException.class);
+        thrownException.expect(UserValidationException.class);
 
         User actualUser = userService.registerUser(fakeUser);
     }
@@ -105,10 +105,10 @@ public class UserServiceTest {
 
         User savedUser = new User();
 
-        Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserException.class);
+        Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserValidationException.class);
 
         //Act and assert
-        thrownException.expect(UserException.class);
+        thrownException.expect(UserValidationException.class);
 
         User actualUser = userService.registerUser(fakeUser);
     }
@@ -128,10 +128,10 @@ public class UserServiceTest {
 
         User savedUser = new User();
 
-        Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserException.class);
+        Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserValidationException.class);
 
         //Act and assert
-        thrownException.expect(UserException.class);
+        thrownException.expect(UserValidationException.class);
 
         User actualUser = userService.registerUser(fakeUser);
     }
@@ -151,10 +151,10 @@ public class UserServiceTest {
 
         User savedUser = new User();
 
-        Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserException.class);
+        Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserValidationException.class);
 
         //Act and assert
-        thrownException.expect(UserException.class);
+        thrownException.expect(UserValidationException.class);
 
         User actualUser = userService.registerUser(fakeUser);
     }
@@ -174,10 +174,10 @@ public class UserServiceTest {
 
         User savedUser = new User();
 
-        Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserException.class);
+        Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserValidationException.class);
 
         //Act and assert
-        thrownException.expect(UserException.class);
+        thrownException.expect(UserValidationException.class);
 
         User actualUser = userService.registerUser(fakeUser);
     }
@@ -197,10 +197,10 @@ public class UserServiceTest {
 
         User savedUser = new User();
 
-        Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserException.class);
+        Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserValidationException.class);
 
         //Act and assert
-        thrownException.expect(UserException.class);
+        thrownException.expect(UserValidationException.class);
 
         User actualUser = userService.registerUser(fakeUser);
     }
