@@ -17,11 +17,13 @@ public class UserService {
     @Autowired
     private UserDAO userDAO;
 
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
     private UserValidator userValidator;
+
+    public UserService() {
+        bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        userValidator = new UserValidator();
+    }
 
 
     public User registerUser(User user) {
@@ -50,11 +52,11 @@ public class UserService {
         User existingUser = userDAO.findByUsername(user.getUsername());
 
         if (existingUser == null) {
-            throw new UserException("User does not exist");
+            throw new UserValidationException("User does not exist");
         }
 
         if (!bCryptPasswordEncoder.matches(user.getPasswordHash(), existingUser.getPasswordHash())) {
-            throw new UserException("Password is incorrect");
+            throw new UserValidationException("Password is incorrect");
         }
     }
 
