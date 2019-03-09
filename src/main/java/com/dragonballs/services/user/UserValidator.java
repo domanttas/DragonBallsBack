@@ -19,23 +19,24 @@ public class UserValidator {
     private static final String EMAIL_REGEX = "\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b";
     private static final String EMAIL_IS_NOT_VALID = "User email is not valid";
 
-    public boolean validate(User user)
+    public void validate(User user)
             throws RuntimeException {
 
         if (user.getUsername().length() < USERNAME_BOTTOM_MARGIN_VALUE) {
             throwUserValidationException(USERNAME_BOTTOM_MARGIN);
         }
+
         if (user.getPasswordHash().length() < PASSWORD_BOTTOM_MARGIN_VALUE || user.getPasswordHash().length() > PASSWORD_UPPER_MARGIN_VALUE) {
             throwUserValidationException(PASSWORD_MARGIN);
         }
+
         if (!Pattern.matches(PASSWORD_REGEX, user.getPasswordHash())) {
             throwUserValidationException(PASSWORD_MUST_BE_ALPHANUMERIC);
         }
+
         if (!Pattern.matches(EMAIL_REGEX, user.getEmail())) {
             throwUserValidationException(EMAIL_IS_NOT_VALID);
         }
-
-        return true;
     }
 
     private void throwUserValidationException(String message) {

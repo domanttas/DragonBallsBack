@@ -10,8 +10,7 @@ import java.net.URI;
 public class UserLocationCreator {
 
     public URI userLocationCreator(User user){
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+        return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(user.getId()).toUri();
-        return location;
     }
 }

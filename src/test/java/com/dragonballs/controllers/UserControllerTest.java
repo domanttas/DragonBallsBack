@@ -48,14 +48,4 @@ public class UserControllerTest {
 
         assertEquals("[location-endpoint]", responseEntity.getHeaders().get("location").toString());
     }
-
-    @Test
-    public void createResponse_fetchUsers(){
-        List<User> users = new ArrayList<>();
-        when(userService.getUsers()).thenReturn(users);
-
-        List<User> userList = userController.getUsers();
-
-        assertEquals(users, userList);
-    }
 }

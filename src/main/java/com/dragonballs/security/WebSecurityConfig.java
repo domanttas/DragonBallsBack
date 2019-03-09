@@ -14,7 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    JwtAuthorizationTokenFilter authenticationTokenFilter;
+    private JwtAuthorizationTokenFilter authenticationTokenFilter;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -34,10 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
-        // disable page caching
         httpSecurity
                 .headers()
-                .frameOptions().sameOrigin()  // required to set for H2 else H2 Console will be blank.
                 .cacheControl();
     }
 }

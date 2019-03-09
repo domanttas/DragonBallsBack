@@ -11,11 +11,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 public class UserController {
     private int AUTH_TOKEN_SUBSTRING_VALUE = 7;
+
     @Autowired
     private UserService userService;
 
@@ -39,11 +39,6 @@ public class UserController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));
     }
 
-    @GetMapping(value = "/api/user/all")
-    public List<User> getUsers() {
-        return this.userService.getUsers();
-    }
-
     @GetMapping(value = "/api/user/refresh")
     public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
         String authToken = request.getHeader("Authorization");
@@ -62,12 +57,10 @@ public class UserController {
     }
 
     @GetMapping(value = "/api/user")
-    public User getAuthenticatedUserByToken(HttpServletRequest request) {
+    public ResponseEntity<User> getAuthenticatedUserByToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization").substring(AUTH_TOKEN_SUBSTRING_VALUE);
         String username = jwtTokenUtil.getUsernameFromToken(token);
 
-        return userService.getUserByUsername(username);
+        return ResponseEntity.ok().body(userService.getUserByUsername(username));
     }
-
-    //https://github.com/szerhusenBC/jwt-spring-security-demo/blob/master/src/main/java/org/zerhusen/config/WebSecurityConfig.java
 }

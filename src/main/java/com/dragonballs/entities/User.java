@@ -22,10 +22,6 @@ public class User {
     @Column(name = "password_hash")
     private String passwordHash;
 
-    @Column(name = "session_token")
-    @Nullable
-    private String sessionToken;
-
     public Long getId() {
         return id;
     }
@@ -56,13 +52,5 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getSessionToken() {
-        return sessionToken;
-    }
-
-    public void setSessionToken(String sessionToken) {
-        this.sessionToken = sessionToken;
     }
 }

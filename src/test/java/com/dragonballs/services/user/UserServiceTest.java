@@ -16,12 +16,12 @@ import java.util.List;
 
 public class UserServiceTest {
 
-    String expectedEmail = "test123@gmail.com";
-    String expectedUsername = "test1234";
-    String password = "12345678";
+    private String expectedEmail = "test123@gmail.com";
+    private String expectedUsername = "test1234";
+    private String password = "12345678";
 
-    User fakeUser;
-    User savedUser;
+    private User fakeUser;
+    private User savedUser;
 
     @Mock
     private UserDAO userDAO;
@@ -88,7 +88,7 @@ public class UserServiceTest {
 
         fakeUser.setUsername(expectedUsername);
 
-        Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserValidationException.class);
+        Mockito.doThrow(UserValidationException.class).when(userValidator).validate(fakeUser);
 
         //Act and assert
         thrownException.expect(UserValidationException.class);
@@ -103,7 +103,7 @@ public class UserServiceTest {
 
         fakeUser.setPasswordHash(password);
 
-        Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserValidationException.class);
+        Mockito.doThrow(UserValidationException.class).when(userValidator).validate(fakeUser);
 
         //Act and assert
         thrownException.expect(UserValidationException.class);
@@ -118,7 +118,7 @@ public class UserServiceTest {
 
         fakeUser.setPasswordHash(password);
 
-        Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserValidationException.class);
+        Mockito.doThrow(UserValidationException.class).when(userValidator).validate(fakeUser);
 
         //Act and assert
         thrownException.expect(UserValidationException.class);
@@ -133,7 +133,7 @@ public class UserServiceTest {
 
         fakeUser.setPasswordHash(password);
 
-        Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserValidationException.class);
+        Mockito.doThrow(UserValidationException.class).when(userValidator).validate(fakeUser);
 
         //Act and assert
         thrownException.expect(UserValidationException.class);
@@ -148,7 +148,7 @@ public class UserServiceTest {
 
         fakeUser.setUsername(expectedUsername);
 
-        Mockito.when(userValidator.validate(fakeUser)).thenThrow(UserValidationException.class);
+        Mockito.doThrow(UserValidationException.class).when(userValidator).validate(fakeUser);
 
         //Act and assert
         thrownException.expect(UserValidationException.class);

@@ -6,6 +6,7 @@ import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.DefaultClock;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -18,8 +19,10 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil implements Serializable {
 
-    //private String secret = "testSecret";
-    private final String secret = Base64.getEncoder().encodeToString("TestSecret".getBytes());
+    @Value("${jwt.secret}")
+    private String fetchedSecret = "testSecret";
+
+    private String secret = Base64.getEncoder().encodeToString(fetchedSecret.getBytes());
 
     private Long expiration = 604800L;
     private Clock clock = DefaultClock.INSTANCE;
@@ -75,15 +78,6 @@ public class JwtTokenUtil implements Serializable {
         return expiration.before(clock.now());
     }
 
-    private Boolean isCreatedBeforeLastPasswordReset(Date created, Date lastPasswordReset) {
-        return (lastPasswordReset != null && created.before(lastPasswordReset));
-    }
-
-    private Boolean ignoreTokenExpiration(String token) {
-        // here you specify tokens, for that the expiration is ignored
-        return false;
-    }
-
     public Boolean canTokenBeRefreshed(String token) {
         final Date created = getIssuedAtDateFromToken(token);
         return !isTokenExpired(token);
@@ -103,6 +97,7 @@ public class JwtTokenUtil implements Serializable {
                 .compact();
     }
 
+
     public Boolean validateToken(String token, User user) {
         final String username = getUsernameFromToken(token);
         //final Date created = getIssuedAtDateFromToken(token);
@@ -112,4 +107,5 @@ public class JwtTokenUtil implements Serializable {
                         && !isTokenExpired(token)
         );
     }
+
 }
