@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +30,17 @@ public class UserService {
         User existingUser = userDAO.findByEmail(user.getEmail());
 
         if (existingUser != null) {
-            throw new UserException("User already exists");
-        } else {
-            user.setPasswordHash(bCryptPasswordEncoder.encode(user.getPasswordHash()));
-
-            return userDAO.registerUser(user);
+            throw new UserException("User with this email already exists");
         }
+
+        existingUser = userDAO.findByUsername(user.getUsername());
+
+        if (existingUser != null) {
+            throw new UserException("User with this username already exists");
+        }
+
+        user.setPasswordHash(bCryptPasswordEncoder.encode(user.getPasswordHash()));
+        return userDAO.registerUser(user);
     }
 
     public List<User> getUsers() {
