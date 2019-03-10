@@ -21,12 +21,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        //http.csrf().disable();
         httpSecurity
-                // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
 
-                // don't create session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 
                 .authorizeRequests()
@@ -37,10 +34,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
         httpSecurity
                 .addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
-        // disable page caching
         httpSecurity
                 .headers()
-                .frameOptions().sameOrigin()  // required to set for H2 else H2 Console will be blank.
+                .frameOptions().sameOrigin()
                 .cacheControl();
     }
 

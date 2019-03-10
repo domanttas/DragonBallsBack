@@ -25,10 +25,6 @@ public class UserDAO {
         return userRepository.findByUsername(username);
     }
 
-    public User findBySessionToken(String sessionToken) {
-        return userRepository.findBySessionToken(sessionToken);
-    }
-
     public Iterable<User> getAllUsers() {
         return userRepository.findAll();
     }

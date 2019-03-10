@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 public class UserController {
     private int AUTH_TOKEN_SUBSTRING_VALUE = 7;
+
     @Autowired
     private UserService userService;
 
@@ -68,6 +69,4 @@ public class UserController {
 
         return userService.getUserByUsername(username);
     }
-
-    //https://github.com/szerhusenBC/jwt-spring-security-demo/blob/master/src/main/java/org/zerhusen/config/WebSecurityConfig.java
 }
