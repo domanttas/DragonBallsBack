@@ -5,7 +5,7 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "application_user")
 public class User {
 
     @Id
