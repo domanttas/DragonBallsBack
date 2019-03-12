@@ -23,7 +23,7 @@ public class User {
     @Column(name = "password_hash")
     private String passwordHash;
 
-    @Column(name = "is_team_lead")
+    @Column(name = "is_team_lead") //TODO: map to deed entity
     private boolean isTeamLead;
 
     @ManyToMany(mappedBy = "users")

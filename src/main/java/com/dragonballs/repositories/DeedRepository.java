@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DeedRepository extends CrudRepository<Deed, Long> {
 
-    Deed findByName(String name);
 }

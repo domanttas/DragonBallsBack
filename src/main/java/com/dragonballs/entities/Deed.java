@@ -1,6 +1,7 @@
 package com.dragonballs.entities;
 
 import org.springframework.data.rest.core.annotation.RestResource;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,6 +24,15 @@ public class Deed {
     @Column(name = "location")
     private String location;
 
+    @Column
+    @Nullable
+    private boolean isClosed;
+
+    @OneToOne
+    @JoinColumn(name = "team_lead_id", referencedColumnName = "id")
+    @Nullable
+    private Long teamLeadId;
+
     @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;
@@ -39,6 +49,7 @@ public class Deed {
     @JoinTable(name = "user_deed",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "deed_id", referencedColumnName = "id"))
+    @Nullable
     private List<User> users;
 
     public Long getId() {
@@ -103,5 +114,22 @@ public class Deed {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public boolean isClosed() {
+        return isClosed;
+    }
+
+    public void setClosed(boolean closed) {
+        isClosed = closed;
+    }
+
+    @Nullable
+    public Long getTeamLeadId() {
+        return teamLeadId;
+    }
+
+    public void setTeamLeadId(@Nullable Long teamLeadId) {
+        this.teamLeadId = teamLeadId;
     }
 }
