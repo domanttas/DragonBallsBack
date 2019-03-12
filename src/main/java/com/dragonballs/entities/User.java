@@ -26,12 +26,6 @@ public class User {
     @Column(name = "is_team_lead")
     private boolean isTeamLead;
 
-    //What is this ??
-
-//    @OneToMany
-//    @JoinColumn(name="deed_id")
-//    private Deed deed;
-
     @ManyToMany(mappedBy = "users")
     private List<Deed> deeds;
 
@@ -66,14 +60,6 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
-//    public Deed getDeed() {
-//        return deed;
-//    }
-//
-//    public void setDeed(Deed deed) {
-//        this.deed = deed;
-//    }
 
     public List<Deed> getDeeds() {
         return deeds;

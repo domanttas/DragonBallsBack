@@ -1,6 +1,7 @@
 package com.dragonballs.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "deed_category")
@@ -14,9 +15,9 @@ public class Category {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name="deed_id")
-    private Deed deed;
+
+    @OneToMany(mappedBy = "id")
+    private List<Deed> deed;
 
     public Long getId() {
         return id;
@@ -34,11 +35,11 @@ public class Category {
         this.name = name;
     }
 
-    public Deed getDeed() {
+    public List<Deed> getDeed() {
         return deed;
     }
 
-    public void setDeed(Deed deed) {
+    public void setDeed(List<Deed> deed) {
         this.deed = deed;
     }
 }

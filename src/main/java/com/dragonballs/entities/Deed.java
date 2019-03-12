@@ -23,7 +23,8 @@ public class Deed {
     @Column(name = "location")
     private String location;
 
-    @OneToMany(mappedBy = "category_id")
+    @ManyToOne
+    @JoinColumn(name="category_id")
     private Category category;
 
     @OneToOne
@@ -72,14 +73,6 @@ public class Deed {
         this.location = location;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
     public Contact getContact() {
         return contact;
     }
@@ -102,5 +95,13 @@ public class Deed {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
