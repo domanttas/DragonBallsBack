@@ -15,7 +15,7 @@ public class Category {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name="library_id")
+    @JoinColumn(name="deed_id")
     private Deed deed;
 
     public Long getId() {

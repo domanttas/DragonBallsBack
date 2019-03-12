@@ -27,14 +27,12 @@ public class Deed {
     private Category category;
 
     @OneToOne
-    @JoinColumn(name = "contact_id")
+    @JoinColumn(name = "contact_id", referencedColumnName = "id")
     private Contact contact;
 
-    @Column(name = "participation")
+    @Column(name = "participation_type")
     @Enumerated(EnumType.STRING)
     private Participation participation;
-
-    private Long team_lead_id;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_deed",
@@ -96,14 +94,6 @@ public class Deed {
 
     public void setParticipation(Participation participation) {
         this.participation = participation;
-    }
-
-    public Long getTeam_lead_id() {
-        return team_lead_id;
-    }
-
-    public void setTeam_lead_id(Long team_lead_id) {
-        this.team_lead_id = team_lead_id;
     }
 
     public List<User> getUsers() {

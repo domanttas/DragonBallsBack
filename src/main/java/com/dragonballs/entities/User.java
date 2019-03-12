@@ -23,9 +23,17 @@ public class User {
     @Column(name = "password_hash")
     private String passwordHash;
 
-    @OneToMany
-    @JoinColumn(name="deed_id")
-    private Deed deed;
+    @Column(name = "is_team_lead")
+    private boolean isTeamLead;
+
+    //What is this ??
+
+//    @OneToMany
+//    @JoinColumn(name="deed_id")
+//    private Deed deed;
+
+    @ManyToMany(mappedBy = "users")
+    private List<Deed> deeds;
 
     public Long getId() {
         return id;
@@ -59,13 +67,13 @@ public class User {
         this.username = username;
     }
 
-    public Deed getDeed() {
-        return deed;
-    }
-
-    public void setDeed(Deed deed) {
-        this.deed = deed;
-    }
+//    public Deed getDeed() {
+//        return deed;
+//    }
+//
+//    public void setDeed(Deed deed) {
+//        this.deed = deed;
+//    }
 
     public List<Deed> getDeeds() {
         return deeds;
@@ -75,6 +83,11 @@ public class User {
         this.deeds = deeds;
     }
 
-    @ManyToMany(mappedBy = "users")
-    private List<Deed> deeds;
+    public boolean isTeamLead() {
+        return isTeamLead;
+    }
+
+    public void setTeamLead(boolean teamLead) {
+        isTeamLead = teamLead;
+    }
 }
