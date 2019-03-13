@@ -1,10 +1,11 @@
-package com.dragonballs.services.deed;
+package com.dragonballs.controllers.deed;
 
 import com.dragonballs.controllers.DeedController;
 import com.dragonballs.entities.Deed;
 import com.dragonballs.entities.User;
 import com.dragonballs.entities.request.DeedRequest;
 import com.dragonballs.exceptions.DeedException;
+import com.dragonballs.services.deed.DeedService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
