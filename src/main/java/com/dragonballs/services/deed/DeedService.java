@@ -67,7 +67,7 @@ public class DeedService {
 
         fetchedDeed.get().getUsers().add(fetchedUser.get());
 
-        return fetchedDeed.get();
+        return deedDAO.registerDeed(fetchedDeed.get());
     }
 
     public Long getTeamLeadId(Long deedId) {
