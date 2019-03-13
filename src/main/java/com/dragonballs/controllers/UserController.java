@@ -11,11 +11,14 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
-import java.util.List;
 
 @RestController
+@RequestMapping("api/user")
 public class UserController {
     private int AUTH_TOKEN_SUBSTRING_VALUE = 7;
+
+    // TODO: change all user fetching from username to id
+    // TODO: wrapper for JwtTokenUtil => SOLID
 
     @Autowired
     private UserService userService;
@@ -23,25 +26,26 @@ public class UserController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @PostMapping(value = "/api/user")
-    public ResponseEntity<Object> registerUser(@RequestBody User user) {
-        User savedUser = userService.registerUser(user);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedUser.getId()).toUri();
-        return ResponseEntity.created(location).build();
+    @PostMapping
+    public ResponseEntity registerUser(@RequestBody User user) {
+        userService.registerUser(user);
+
+        return ResponseEntity.ok().body(null);
     }
 
-    @PostMapping(value = "/api/user/auth")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody User user) {
+    @PostMapping(value = "/auth")
+    public ResponseEntity createAuthenticationToken(@RequestBody User user) {
         userService.validateUser(user);
 
         String token = jwtTokenUtil.generateToken(user);
 
+        // TODO: return user with response body
+
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));
     }
 
-    @GetMapping(value = "/api/user/refresh")
-    public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
+    @GetMapping(value = "/refresh")
+    public ResponseEntity refreshAndGetAuthenticationToken(HttpServletRequest request) {
         String authToken = request.getHeader("Authorization");
 
         String token = authToken.substring(AUTH_TOKEN_SUBSTRING_VALUE);
@@ -57,7 +61,7 @@ public class UserController {
         }
     }
 
-    @GetMapping(value = "/api/user")
+    @GetMapping
     public ResponseEntity<User> getAuthenticatedUserByToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization").substring(AUTH_TOKEN_SUBSTRING_VALUE);
         String username = jwtTokenUtil.getUsernameFromToken(token);

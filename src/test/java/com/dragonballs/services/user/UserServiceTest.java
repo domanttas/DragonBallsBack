@@ -204,27 +204,4 @@ public class UserServiceTest {
 
         User actualUser = userService.registerUser(fakeUser);
     }
-
-    @Test
-    public void getUsers_should_return_users() {
-        //Arrange
-        String expectedEmail = "test12@gmail.com";
-        String expectedUsername = "test1234";
-        String password = "123456789";
-        User fakeUser = new User();
-
-
-        fakeUser.setUsername(expectedUsername);
-        fakeUser.setEmail(expectedEmail);
-        fakeUser.setPasswordHash(password);
-
-        List<User> fakeUsers = new ArrayList<>();
-        fakeUsers.add(fakeUser);
-
-        Mockito.when(userService.getUsers()).thenReturn(fakeUsers);
-
-        List<User> actualUsers = userService.getUsers();
-
-        Assert.assertEquals(actualUsers, fakeUsers);
-    }
 }

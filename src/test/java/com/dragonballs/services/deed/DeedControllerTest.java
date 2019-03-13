@@ -1,0 +1,97 @@
+package com.dragonballs.services.deed;
+
+import com.dragonballs.controllers.DeedController;
+import com.dragonballs.entities.Deed;
+import com.dragonballs.entities.User;
+import com.dragonballs.entities.request.DeedRequest;
+import com.dragonballs.exceptions.DeedException;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.mockito.*;
+import org.springframework.http.ResponseEntity;
+
+public class DeedControllerTest {
+
+    @Mock
+    private DeedService deedService;
+
+    @InjectMocks
+    private DeedController deedController;
+
+    @Captor
+    private ArgumentCaptor<DeedRequest> deedRequest;
+
+    @Captor
+    private ArgumentCaptor<Deed> deed;
+
+    @Captor
+    private ArgumentCaptor<User> user;
+
+    @Rule
+    public ExpectedException thrownException = ExpectedException.none();
+
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void registerDeed_should_return_ok() {
+        DeedRequest fakeRequest = deedRequest.capture();
+
+        Mockito.when(deedService.registerDeed(fakeRequest)).thenReturn(deed.capture());
+
+        ResponseEntity result = deedController.registerDeed(fakeRequest);
+
+        Assert.assertEquals(ResponseEntity.ok().body(null), result);
+    }
+
+    @Test
+    public void registerDeed_should_throw() {
+        DeedRequest fakeRequest = null;
+
+        Mockito.when(deedService.registerDeed(fakeRequest)).thenThrow(DeedException.class);
+        thrownException.expect(DeedException.class);
+
+        deedController.registerDeed(fakeRequest);
+    }
+
+    @Test
+    public void getTeamLeadId_should_return_team_lead_id() {
+        Long deedId = 1L;
+        Long teamLeadId = 3L;
+
+        Mockito.when(deedService.getTeamLeadId(deedId)).thenReturn(teamLeadId);
+
+        ResponseEntity result = deedController.getTeamLeadId(deedId);
+
+        Assert.assertEquals(ResponseEntity.ok().body(teamLeadId), result);
+    }
+
+    @Test
+    public void getTeamLeadId_should_throw() {
+        Long deedId = 555L;
+
+        Mockito.when(deedService.getTeamLeadId(deedId)).thenThrow(DeedException.class);
+        thrownException.expect(DeedException.class);
+
+        deedController.getTeamLeadId(deedId);
+    }
+
+    @Test
+    public void addUserToDeed_should_return_ok() {
+        Long deedId = 5L;
+
+        User fakeUser = user.capture();
+        Deed fakeDeed = deed.capture();
+
+        Mockito.when(deedService.addUserToDeed(fakeUser, deedId)).thenReturn(fakeDeed);
+
+        ResponseEntity result = deedController.addUserToDeed(fakeUser, deedId);
+
+        Assert.assertEquals(ResponseEntity.ok().body(fakeDeed), result);
+    }
+}

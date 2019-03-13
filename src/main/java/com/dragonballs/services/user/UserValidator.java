@@ -2,9 +2,11 @@ package com.dragonballs.services.user;
 
 import com.dragonballs.entities.User;
 import com.dragonballs.exceptions.UserException;
+import org.springframework.stereotype.Service;
 
 import java.util.regex.Pattern;
 
+@Service
 public class UserValidator {
 
     private static final String USERNAME_BOTTOM_MARGIN = "Username must be longer than 5 symbols";

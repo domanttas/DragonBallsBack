@@ -7,22 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class UserService {
+
     @Autowired
     private UserDAO userDAO;
 
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
+    @Autowired
     private UserValidator userValidator;
-
-    public UserService() {
-        bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        userValidator = new UserValidator();
-    }
 
     public User registerUser(User user) {
         userValidator.validate(user);
@@ -33,7 +27,7 @@ public class UserService {
             throw new UserException("User with this email already exists");
         }
 
-        existingUser = userDAO.findByUsername(user.getUsername());
+        existingUser = getUserByUsername(user.getUsername());
 
         if (existingUser != null) {
             throw new UserException("User with this username already exists");
@@ -43,16 +37,10 @@ public class UserService {
         return userDAO.registerUser(user);
     }
 
-    public List<User> getUsers() {
-        List<User> users = new ArrayList<>();
-        for (User user : userDAO.getAllUsers()) {
-            users.add(user);
-        }
-        return users;
-    }
+    //TODO: move to token wrapper
 
     public void validateUser(User user) {
-        User existingUser = userDAO.findByUsername(user.getUsername());
+        User existingUser = getUserByUsername(user.getUsername());
 
         if (existingUser == null) {
             throw new UserException("User does not exist");

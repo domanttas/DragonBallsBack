@@ -13,11 +13,11 @@ public class DeedDAO {
     @Autowired
     private DeedRepository deedRepository;
 
-    public Optional<Deed> findById(Long id) {
+    public Optional<Deed> getDeedById(Long id) {
         return deedRepository.findById(id);
     }
 
-    public Deed save(Deed deed) {
+    public Deed registerDeed(Deed deed) {
         return deedRepository.save(deed);
     }
 }
