@@ -81,12 +81,12 @@ public class DeedService {
     }
 
     public Deed updateDeed(Deed deed) {
-        Optional<Deed> maybeDeed = deedDAO.getDeedById(id);
+        Optional<Deed> maybeDeed = deedDAO.getDeedById(deed.getId());
 
         if (!maybeDeed.isPresent()) {
             throw new DeedException("Such deed does not exist.");
         }
 
-        return deedDAO.registerDeed(maybeDeed.get());
+        return deedDAO.registerDeed(deed);
     }
 }

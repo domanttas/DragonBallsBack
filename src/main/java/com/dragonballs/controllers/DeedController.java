@@ -38,7 +38,6 @@ public class DeedController {
 
     @PutMapping(value = "/update")
     public ResponseEntity<Object> updateDeed (@RequestBody Deed deed){
-
         Deed fetchedDeed = deedService.updateDeed(deed);
         return ResponseEntity.ok().body(fetchedDeed);
     }
