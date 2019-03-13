@@ -1,5 +1,7 @@
 package com.dragonballs.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -17,6 +19,7 @@ public class Category {
 
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Deed> deed;
 
     public Long getId() {

@@ -11,6 +11,8 @@ import com.dragonballs.exceptions.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -88,5 +90,27 @@ public class DeedService {
         }
 
         return deedDAO.registerDeed(deed);
+    }
+
+    public void alterDeedStatus(Long id) {
+        Optional<Deed> deed = deedDAO.getDeedById(id);
+
+        if (!deed.isPresent()) {
+            throw new DeedException("Deed with this id does not exist");
+        }
+
+        deed.get().setClosed(true);
+
+        deedDAO.registerDeed(deed.get());
+    }
+
+    public List<Deed> getDeeds() {
+        List<Deed> deeds = new ArrayList<>();
+
+        for (Deed deed : deedDAO.getDeeds()) {
+            deeds.add(deed);
+        }
+
+        return deeds;
     }
 }

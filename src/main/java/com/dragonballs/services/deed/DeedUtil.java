@@ -32,7 +32,7 @@ public class DeedUtil {
         }
 
         if (!missingUsers.isEmpty()) {
-            throw new DeedException("Missing users: ", missingUsers);
+            throw new DeedException("Missing users: ");
         }
 
         return fetchedUsers;

@@ -20,4 +20,8 @@ public class DeedDAO {
     public Deed registerDeed(Deed deed) {
         return deedRepository.save(deed);
     }
+
+    public Iterable<Deed> getDeeds() {
+        return deedRepository.findAll();
+    }
 }

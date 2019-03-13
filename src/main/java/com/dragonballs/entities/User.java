@@ -1,5 +1,6 @@
 package com.dragonballs.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class User {
     private boolean isTeamLead;
 
     @ManyToMany(mappedBy = "users")
+    @JsonIgnore
     private List<Deed> deeds;
 
     public Long getId() {

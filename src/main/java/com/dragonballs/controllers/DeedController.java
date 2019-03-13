@@ -41,4 +41,15 @@ public class DeedController {
         Deed fetchedDeed = deedService.updateDeed(deed);
         return ResponseEntity.ok().body(fetchedDeed);
     }
+
+    @GetMapping
+    public ResponseEntity<?> getDeeds() {
+        return ResponseEntity.ok().body(deedService.getDeeds());
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Object> deactivateDeed(@PathVariable("id") Long id){
+        deedService.alterDeedStatus(id);
+        return ResponseEntity.ok().body(null);
+    }
 }
