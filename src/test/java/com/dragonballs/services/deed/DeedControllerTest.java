@@ -2,6 +2,7 @@ package com.dragonballs.services.deed;
 
 import com.dragonballs.controllers.DeedController;
 import com.dragonballs.entities.Deed;
+import com.dragonballs.entities.User;
 import com.dragonballs.entities.request.DeedRequest;
 import com.dragonballs.exceptions.DeedException;
 import org.junit.Assert;
@@ -25,6 +26,9 @@ public class DeedControllerTest {
 
     @Captor
     private ArgumentCaptor<Deed> deed;
+
+    @Captor
+    private ArgumentCaptor<User> user;
 
     @Rule
     public ExpectedException thrownException = ExpectedException.none();
@@ -75,5 +79,19 @@ public class DeedControllerTest {
         thrownException.expect(DeedException.class);
 
         deedController.getTeamLeadId(deedId);
+    }
+
+    @Test
+    public void addUserToDeed_should_return_ok() {
+        Long deedId = 5L;
+
+        User fakeUser = user.capture();
+        Deed fakeDeed = deed.capture();
+
+        Mockito.when(deedService.addUserToDeed(fakeUser, deedId)).thenReturn(fakeDeed);
+
+        ResponseEntity result = deedController.addUserToDeed(fakeUser, deedId);
+
+        Assert.assertEquals(ResponseEntity.ok().body(fakeDeed), result);
     }
 }

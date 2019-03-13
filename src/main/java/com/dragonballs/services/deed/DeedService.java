@@ -4,8 +4,10 @@ import com.dragonballs.dao.DeedDAO;
 import com.dragonballs.dao.UserDAO;
 import com.dragonballs.entities.Deed;
 import com.dragonballs.entities.Participation;
+import com.dragonballs.entities.User;
 import com.dragonballs.entities.request.DeedRequest;
 import com.dragonballs.exceptions.DeedException;
+import com.dragonballs.exceptions.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +50,24 @@ public class DeedService {
         }
 
         return deedDAO.registerDeed(deed);
+    }
+
+    public Deed addUserToDeed(User user, Long deedId) {
+        Optional<User> fetchedUser = userDAO.findById(user.getId());
+
+        if (!fetchedUser.isPresent()) {
+            throw new UserException("User does not exist");
+        }
+
+        Optional<Deed> fetchedDeed = deedDAO.getDeedById(deedId);
+
+        if (!fetchedDeed.isPresent()) {
+            throw new DeedException("Deed does not exist");
+        }
+
+        fetchedDeed.get().getUsers().add(fetchedUser.get());
+
+        return fetchedDeed.get();
     }
 
     public Long getTeamLeadId(Long deedId) {

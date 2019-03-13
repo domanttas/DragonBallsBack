@@ -1,5 +1,7 @@
 package com.dragonballs.controllers;
 
+import com.dragonballs.entities.Deed;
+import com.dragonballs.entities.User;
 import com.dragonballs.entities.request.DeedRequest;
 import com.dragonballs.services.deed.DeedService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +27,12 @@ public class DeedController {
         Long teamLeadId = deedService.getTeamLeadId(id);
 
         return ResponseEntity.ok().body(teamLeadId);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<?> addUserToDeed(@RequestBody User user, @PathVariable Long id) {
+        Deed updatedDeed = deedService.addUserToDeed(user, id);
+
+        return ResponseEntity.ok().body(updatedDeed);
     }
 }
