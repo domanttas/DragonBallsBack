@@ -20,7 +20,7 @@ public class DeedController {
         return ResponseEntity.ok().body(null);
     }
 
-    @GetMapping(value = "/(id)")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<?> getTeamLeadId(@PathVariable Long id) {
         Long teamLeadId = deedService.getTeamLeadId(id);
 

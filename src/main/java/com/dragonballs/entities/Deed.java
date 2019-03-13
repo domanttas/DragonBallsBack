@@ -28,16 +28,13 @@ public class Deed {
     @Nullable
     private boolean isClosed;
 
-    @OneToOne
-    @JoinColumn(name = "team_lead_id", referencedColumnName = "id")
-    @Nullable
     private Long teamLeadId;
 
-    @ManyToOne
-    @JoinColumn(name="category_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="category_id", referencedColumnName = "id")
     private Category category;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_id", referencedColumnName = "id")
     private Contact contact;
 

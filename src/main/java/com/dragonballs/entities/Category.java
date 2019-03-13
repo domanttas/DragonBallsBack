@@ -16,7 +16,7 @@ public class Category {
     private String name;
 
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Deed> deed;
 
     public Long getId() {
