@@ -2,6 +2,7 @@ package com.dragonballs.services.deed;
 
 import com.dragonballs.dao.DeedDAO;
 import com.dragonballs.entities.Deed;
+import com.dragonballs.exceptions.DeedException;
 import com.dragonballs.exceptions.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,5 +33,18 @@ public class DeedService {
         }
 
         return deedDAO.registerDeed(deed);
+    }
+
+    public void alterDeedStatus(Long id){
+        Deed deed = deedDAO.findById(id);
+
+        //if deed is null throw exception
+        if (deed == null) {
+            throw new DeedException("Deed with this id does not exist");
+        }
+
+        deed.setClosed(true);
+
+        deedDAO.update(deed);
     }
 }

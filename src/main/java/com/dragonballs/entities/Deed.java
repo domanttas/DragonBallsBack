@@ -41,6 +41,17 @@ public class Deed {
             inverseJoinColumns = @JoinColumn(name = "deed_id", referencedColumnName = "id"))
     private List<User> users;
 
+    @Column(name = "is_closed")
+    private boolean isClosed;
+
+    public boolean isClosed() {
+        return isClosed;
+    }
+
+    public void setClosed(boolean closed) {
+        isClosed = closed;
+    }
+
     public Long getId() {
         return id;
     }
