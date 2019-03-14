@@ -3,10 +3,13 @@ package com.dragonballs.controllers;
 import com.dragonballs.entities.Deed;
 import com.dragonballs.entities.User;
 import com.dragonballs.entities.request.DeedRequest;
+import com.dragonballs.exceptions.TeamMembersException;
 import com.dragonballs.services.deed.DeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/deed")
@@ -17,7 +20,11 @@ public class DeedController {
 
     @PostMapping
     public ResponseEntity<?> registerDeed(@RequestBody DeedRequest deedRequest) {
-        deedService.registerDeed(deedRequest);
+        try {
+            deedService.registerDeed(deedRequest);
+        } catch (TeamMembersException missingUserException) {
+             return ResponseEntity.badRequest().body(missingUserException.getMissingUsers());
+        }
 
         return ResponseEntity.ok().body(null);
     }

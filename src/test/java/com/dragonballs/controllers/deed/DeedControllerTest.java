@@ -5,6 +5,7 @@ import com.dragonballs.entities.Deed;
 import com.dragonballs.entities.User;
 import com.dragonballs.entities.request.DeedRequest;
 import com.dragonballs.exceptions.DeedException;
+import com.dragonballs.exceptions.TeamMembersException;
 import com.dragonballs.services.deed.DeedService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -40,7 +41,7 @@ public class DeedControllerTest {
     }
 
     @Test
-    public void registerDeed_should_return_ok() {
+    public void registerDeed_should_return_ok() throws TeamMembersException {
         DeedRequest fakeRequest = deedRequest.capture();
 
         Mockito.when(deedService.registerDeed(fakeRequest)).thenReturn(deed.capture());
@@ -51,7 +52,7 @@ public class DeedControllerTest {
     }
 
     @Test
-    public void registerDeed_should_throw() {
+    public void registerDeed_should_throw() throws TeamMembersException {
         DeedRequest fakeRequest = null;
 
         Mockito.when(deedService.registerDeed(fakeRequest)).thenThrow(DeedException.class);

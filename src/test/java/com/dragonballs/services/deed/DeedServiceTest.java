@@ -5,6 +5,7 @@ import com.dragonballs.dao.UserDAO;
 import com.dragonballs.entities.*;
 import com.dragonballs.entities.request.DeedRequest;
 import com.dragonballs.exceptions.DeedException;
+import com.dragonballs.exceptions.TeamMembersException;
 import com.dragonballs.exceptions.UserException;
 import org.junit.Assert;
 import org.junit.Before;
@@ -100,7 +101,7 @@ public class DeedServiceTest {
 
 
     @Test
-    public void registerDeed_should_return_registered_deed() {
+    public void registerDeed_should_return_registered_deed() throws TeamMembersException {
 
         Mockito.when(deedDAO.registerDeed(fakedDeed)).thenReturn(fakedDeed);
 
@@ -144,7 +145,7 @@ public class DeedServiceTest {
 
 
     @Test
-    public void registerDeed_should_throw_exception_No_team_members_provided() {
+    public void registerDeed_should_throw_exception_No_team_members_provided() throws TeamMembersException {
 
         deedRequest.setTeamUsernames(null);
         fakedDeed.setUsers(null);
@@ -160,7 +161,7 @@ public class DeedServiceTest {
     }
 
     @Test
-    public void registerDeed_should_close_deed_when_participation_not_interested() {
+    public void registerDeed_should_close_deed_when_participation_not_interested() throws TeamMembersException {
 
         deedRequest.setParticipation(Participation.NOT_INTERESTED );
 
@@ -173,7 +174,7 @@ public class DeedServiceTest {
     }
 
     @Test
-    public void registerDeed_should_close_deed_when_participation_as_solo() {
+    public void registerDeed_should_close_deed_when_participation_as_solo() throws TeamMembersException {
 
         deedRequest.setParticipation(Participation.PARTICIPATE_AS_SOLO );
 

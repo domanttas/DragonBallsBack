@@ -7,6 +7,7 @@ import com.dragonballs.entities.Participation;
 import com.dragonballs.entities.User;
 import com.dragonballs.entities.request.DeedRequest;
 import com.dragonballs.exceptions.DeedException;
+import com.dragonballs.exceptions.TeamMembersException;
 import com.dragonballs.exceptions.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class DeedService {
     @Autowired
     private DeedUtil deedUtil;
 
-    public Deed registerDeed(DeedRequest deedRequest) {
+    public Deed registerDeed(DeedRequest deedRequest) throws TeamMembersException {
         Deed deed = new Deed();
 
         deed.setName(deedRequest.getName());
@@ -47,7 +48,12 @@ public class DeedService {
         } else if (deedRequest.getParticipation() == Participation.NOT_INTERESTED) {
             deedRequest.setClosed(false);
         } else if (deedRequest.getParticipation() == Participation.PARTICIPATE_AS_SOLO) {
-            deed.setUsers(deedUtil.fetchUsersInTeam(deedRequest.getTeamUsernames()));
+            try {
+                deed.setUsers(deedUtil.fetchUsersInTeam(deedRequest.getTeamUsernames()));
+            } catch (TeamMembersException missingUsersException) {
+                throw new TeamMembersException(missingUsersException.getMissingUsers());
+            }
+
             deedRequest.setClosed(false);
         }
 
