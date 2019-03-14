@@ -52,6 +52,12 @@ public class UserService {
     }
 
     public User getUserByUsername(String username) {
-        return userDAO.findByUsername(username);
+        User user = userDAO.findByUsername(username);
+
+        if (user == null) {
+            throw new UserException("User does not exist");
+        }
+
+        return user;
     }
 }
