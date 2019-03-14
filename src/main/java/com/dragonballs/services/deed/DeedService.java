@@ -38,16 +38,20 @@ public class DeedService {
         deed.setDescription(deedRequest.getDescription());
         deed.setTeamLeadId(deedRequest.getTeamLeadId());
 
-        if (deedRequest.getTeamUsernames() == null || deedRequest.getTeamUsernames().isEmpty()) {
-            throw new DeedException("No team members provided");
-        }
-
         if (deedRequest.getParticipation() == Participation.PARTICIPATE_AS_TEAM) {
+            if (deedRequest.getTeamUsernames() == null || deedRequest.getTeamUsernames().isEmpty()) {
+                throw new DeedException("No team members provided");
+            }
+
             deed.setUsers(deedUtil.fetchUsersInTeam(deedRequest.getTeamUsernames()));
             deed.setClosed(true);
         } else if (deedRequest.getParticipation() == Participation.NOT_INTERESTED) {
             deedRequest.setClosed(false);
         } else if (deedRequest.getParticipation() == Participation.PARTICIPATE_AS_SOLO) {
+            if (deedRequest.getTeamUsernames() == null || deedRequest.getTeamUsernames().isEmpty()) {
+                throw new DeedException("No team members provided");
+            }
+
             try {
                 deed.setUsers(deedUtil.fetchUsersInTeam(deedRequest.getTeamUsernames()));
             } catch (TeamMembersException missingUsersException) {
