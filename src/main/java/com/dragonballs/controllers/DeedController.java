@@ -43,7 +43,7 @@ public class DeedController {
         return ResponseEntity.ok().body(updatedDeed);
     }
 
-    @PutMapping(value = "/update")
+    @PostMapping(value = "/update")
     public ResponseEntity<Object> updateDeed (@RequestBody Deed deed){
         Deed fetchedDeed = deedService.updateDeed(deed);
         return ResponseEntity.ok().body(fetchedDeed);
