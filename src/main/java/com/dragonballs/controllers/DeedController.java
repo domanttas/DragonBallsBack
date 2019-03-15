@@ -54,7 +54,7 @@ public class DeedController {
         return ResponseEntity.ok().body(deedService.getDeeds());
     }
 
-    @DeleteMapping(value = "/{id}")
+    @GetMapping(value = "delete/{id}")
     public ResponseEntity<Object> deactivateDeed(@PathVariable("id") Long id){
         deedService.alterDeedStatus(id);
         return ResponseEntity.ok().body(null);
