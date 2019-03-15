@@ -36,7 +36,7 @@ public class DeedController {
         return ResponseEntity.ok().body(teamLeadId);
     }
 
-    @PutMapping(value = "/{id}")
+    @PostMapping(value = "/add/{id}")
     public ResponseEntity<?> addUserToDeed(@RequestBody User user, @PathVariable Long id) {
         Deed updatedDeed = deedService.addUserToDeed(user, id);
 
