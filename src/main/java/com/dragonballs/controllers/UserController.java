@@ -26,7 +26,7 @@ public class UserController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @PostMapping
+    @PostMapping(value = "/create")
     public ResponseEntity registerUser(@RequestBody User user) {
         userService.registerUser(user);
 
