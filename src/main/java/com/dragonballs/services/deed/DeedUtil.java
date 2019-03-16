@@ -17,10 +17,6 @@ public class DeedUtil {
     @Autowired
     private UserDAO userDAO;
 
-    private DeedResponse deedResponse;
-
-
-
     public List<User> fetchUsersInTeam(List<String> usernames) throws TeamMembersException {
         List<User> fetchedUsers = new ArrayList<>();
         List<String> missingUsers = new ArrayList<>();

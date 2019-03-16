@@ -37,8 +37,6 @@ public class UserService {
         return userDAO.registerUser(user);
     }
 
-    //TODO: move to token wrapper
-
     public void validateUser(User user) {
         User existingUser = getUserByUsername(user.getUsername());
 

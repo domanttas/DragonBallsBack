@@ -7,18 +7,13 @@ import com.dragonballs.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.URI;
 
 @RestController
 @RequestMapping("api/user")
 public class UserController {
     private int AUTH_TOKEN_SUBSTRING_VALUE = 7;
-
-    // TODO: change all user fetching from username to id
-    // TODO: wrapper for JwtTokenUtil => SOLID
 
     @Autowired
     private UserService userService;
@@ -38,8 +33,6 @@ public class UserController {
         userService.validateUser(user);
 
         String token = jwtTokenUtil.generateToken(user);
-
-        // TODO: return user with response body
 
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));
     }
