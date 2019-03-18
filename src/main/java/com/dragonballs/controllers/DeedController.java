@@ -24,15 +24,15 @@ public class DeedController {
              return ResponseEntity.badRequest().body(missingUserException.getMissingUsers());
         }
 
-        return ResponseEntity.ok().body(null);
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<?> getTeamLeadId(@PathVariable Long id) {
-        Long teamLeadId = deedService.getTeamLeadId(id);
-
-        return ResponseEntity.ok().body(teamLeadId);
-    }
+//    @GetMapping(value = "/{id}")
+//    public ResponseEntity<?> getTeamLeadId(@PathVariable Long id) {
+//        Long teamLeadId = deedService.getTeamLeadId(id);
+//
+//        return ResponseEntity.ok().body(teamLeadId);
+//    }
 
     @PostMapping(value = "/add/{id}")
     public ResponseEntity<?> addUserToDeed(@RequestBody User user, @PathVariable Long id) {
@@ -42,7 +42,7 @@ public class DeedController {
     }
 
     @PostMapping(value = "/update")
-    public ResponseEntity<Object> updateDeed (@RequestBody Deed deed){
+    public ResponseEntity<Object> updateDeed (@RequestBody Deed deed) {
         Deed fetchedDeed = deedService.updateDeed(deed);
         return ResponseEntity.ok().body(fetchedDeed);
     }
@@ -53,8 +53,8 @@ public class DeedController {
     }
 
     @GetMapping(value = "delete/{id}")
-    public ResponseEntity<Object> deactivateDeed(@PathVariable("id") Long id){
+    public ResponseEntity<Object> deactivateDeed(@PathVariable("id") Long id) {
         deedService.alterDeedStatus(id);
-        return ResponseEntity.ok().body(null);
+        return ResponseEntity.ok().build();
     }
 }

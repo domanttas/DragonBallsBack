@@ -46,7 +46,7 @@ public class DeedService {
             deed.setUsers(deedUtil.fetchUsersInTeam(deedRequest.getTeamUsernames()));
             deed.setClosed(true);
         } else if (deedRequest.getParticipation() == Participation.NOT_INTERESTED) {
-            deedRequest.setClosed(false);
+            deed.setClosed(false);
         } else if (deedRequest.getParticipation() == Participation.PARTICIPATE_AS_SOLO) {
             if (deedRequest.getTeamUsernames() == null || deedRequest.getTeamUsernames().isEmpty()) {
                 throw new DeedException("No team members provided");
@@ -58,7 +58,7 @@ public class DeedService {
                 throw new TeamMembersException(missingUsersException.getMissingUsers());
             }
 
-            deedRequest.setClosed(false);
+            deed.setClosed(false);
         }
 
         return deedDAO.registerDeed(deed);
@@ -80,16 +80,6 @@ public class DeedService {
         fetchedDeed.get().getUsers().add(fetchedUser.get());
 
         return deedDAO.registerDeed(fetchedDeed.get());
-    }
-
-    public Long getTeamLeadId(Long deedId) {
-        Optional<Deed> fetchedDeed = deedDAO.getDeedById(deedId);
-
-        if (!fetchedDeed.isPresent()) {
-            throw new DeedException("Deed does not exist");
-        }
-
-        return fetchedDeed.get().getTeamLeadId();
     }
 
     public Deed updateDeed(Deed deed) {

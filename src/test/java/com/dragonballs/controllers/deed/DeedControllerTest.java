@@ -62,28 +62,6 @@ public class DeedControllerTest {
     }
 
     @Test
-    public void getTeamLeadId_should_return_team_lead_id() {
-        Long deedId = 1L;
-        Long teamLeadId = 3L;
-
-        Mockito.when(deedService.getTeamLeadId(deedId)).thenReturn(teamLeadId);
-
-        ResponseEntity result = deedController.getTeamLeadId(deedId);
-
-        Assert.assertEquals(ResponseEntity.ok().body(teamLeadId), result);
-    }
-
-    @Test
-    public void getTeamLeadId_should_throw() {
-        Long deedId = 555L;
-
-        Mockito.when(deedService.getTeamLeadId(deedId)).thenThrow(DeedException.class);
-        thrownException.expect(DeedException.class);
-
-        deedController.getTeamLeadId(deedId);
-    }
-
-    @Test
     public void addUserToDeed_should_return_ok() {
         Long deedId = 5L;
 

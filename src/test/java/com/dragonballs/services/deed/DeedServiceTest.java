@@ -225,23 +225,23 @@ public class DeedServiceTest {
 
     }
 
-    @Test
-    public void getTeamLeadId_should_return_id() {
-
-        Mockito.when(deedDAO.getDeedById(fakedDeed.getId())).thenReturn(Optional.of(fakedDeed));
-
-        deedService.getTeamLeadId(fakedDeed.getId());
-    }
-
-    @Test
-    public void getTeamLeadId_should_throw_user_does_not_exist_exception() {
-
-        Mockito.when(deedDAO.getDeedById(fakedDeed.getId())).thenReturn(Optional.empty());
-
-        thrownException.expect(DeedException.class);
-
-        deedService.getTeamLeadId(fakedDeed.getId());
-    }
+//    @Test
+//    public void getTeamLeadId_should_return_id() {
+//
+//        Mockito.when(deedDAO.getDeedById(fakedDeed.getId())).thenReturn(Optional.of(fakedDeed));
+//
+//        deedService.getTeamLeadId(fakedDeed.getId());
+//    }
+//
+//    @Test
+//    public void getTeamLeadId_should_throw_user_does_not_exist_exception() {
+//
+//        Mockito.when(deedDAO.getDeedById(fakedDeed.getId())).thenReturn(Optional.empty());
+//
+//        thrownException.expect(DeedException.class);
+//
+//        deedService.getTeamLeadId(fakedDeed.getId());
+//    }
 
     @Test
     public void updateDeed_should_throw_user_does_not_exist_exception() {
