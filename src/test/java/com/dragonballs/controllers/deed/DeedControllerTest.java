@@ -43,7 +43,6 @@ public class DeedControllerTest {
     @Test
     public void registerDeed_should_return_ok() throws TeamMembersException {
         DeedRequest fakeRequest = deedRequest.capture();
-
         Mockito.when(deedService.registerDeed(fakeRequest)).thenReturn(deed.capture());
 
         ResponseEntity result = deedController.registerDeed(fakeRequest);
@@ -64,7 +63,6 @@ public class DeedControllerTest {
     @Test
     public void addUserToDeed_should_return_ok() {
         Long deedId = 5L;
-
         User fakeUser = user.capture();
         Deed fakeDeed = deed.capture();
 

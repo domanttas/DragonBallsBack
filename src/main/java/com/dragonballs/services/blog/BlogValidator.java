@@ -14,7 +14,7 @@ public class BlogValidator {
 
     private static final String ALL_FIELD_ARE_REQUIRED = "All field are required";
 
-    public void validate (Blog blog) {
+    public boolean validate (Blog blog) {
 
         if (blog.getBlogText().isEmpty()) {
             throw new BlogException(ALL_FIELD_ARE_REQUIRED);
@@ -22,5 +22,6 @@ public class BlogValidator {
             throw new BlogException(ALL_FIELD_ARE_REQUIRED);
         }
         userService.validateUser(blog.getUser());
+        return true;
     }
 }
