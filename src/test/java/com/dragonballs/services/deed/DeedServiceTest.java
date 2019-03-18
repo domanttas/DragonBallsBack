@@ -105,43 +105,11 @@ public class DeedServiceTest {
 
         Mockito.when(deedDAO.registerDeed(fakedDeed)).thenReturn(fakedDeed);
 
-        //deedRequest.setClosed(true);
-
-        //deedRequest.setParticipation(Participation.PARTICIPATE_AS_TEAM);
-
         deedService.registerDeed(deedRequest);
 
         Assert.assertEquals(deedRequest.getName(), fakedDeed.getName());
 
     }
-
-    /*    public Deed registerDeed(DeedRequest deedRequest) {
-        Deed deed = new Deed();
-
-        deed.setName(deedRequest.getName());
-        deed.setLocation(deedRequest.getLocation());
-        deed.setCategory(deedRequest.getCategory());
-        deed.setContact(deedRequest.getContact());
-        deed.setParticipation(deedRequest.getParticipation());
-        deed.setDescription(deedRequest.getDescription());
-        deed.setTeamLeadId(deedRequest.getTeamLeadId());
-
-        if (deedRequest.getTeamUsernames() == null || deedRequest.getTeamUsernames().isEmpty()) {
-            throw new DeedException("No team members provided");
-        }
-
-        if (deedRequest.getParticipation() == Participation.PARTICIPATE_AS_TEAM) {
-            deed.setUsers(deedUtil.fetchUsersInTeam(deedRequest.getTeamUsernames()));
-            deed.setClosed(true);
-        } else if (deedRequest.getParticipation() == Participation.NOT_INTERESTED) {
-            deedRequest.setClosed(false);
-        } else if (deedRequest.getParticipation() == Participation.PARTICIPATE_AS_SOLO) {
-            deed.setUsers(deedUtil.fetchUsersInTeam(deedRequest.getTeamUsernames()));
-            deedRequest.setClosed(false);
-        }
-
-        return deedDAO.registerDeed(deed);
-    }*/
 
 
     @Test
@@ -268,24 +236,6 @@ public class DeedServiceTest {
 
         Assert.assertEquals(fakedDeed.getName(), newFakeName);
     }
-
-
-
-
-    /*
-
-    public Deed updateDeed(Deed deed) {
-        Optional<Deed> maybeDeed = deedDAO.getDeedById(deed.getId());
-
-        if (!maybeDeed.isPresent()) {
-            throw new DeedException("Such deed does not exist.");
-        }
-
-        return deedDAO.registerDeed(deed);
-    }
-    }*/
-
-
 
     @Test
     public void getDeeds_should_return_deed_list() {
