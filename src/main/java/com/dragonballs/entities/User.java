@@ -31,6 +31,10 @@ public class User {
     @JsonIgnore
     private List<Deed> deeds;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Blog> blogs;
+
     public Long getId() {
         return id;
     }
@@ -77,5 +81,13 @@ public class User {
 
     public void setTeamLead(boolean teamLead) {
         isTeamLead = teamLead;
+    }
+
+    public List<Blog> getBlogs() {
+        return blogs;
+    }
+
+    public void setBlogs(List<Blog> blogs) {
+        this.blogs = blogs;
     }
 }
