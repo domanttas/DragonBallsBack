@@ -27,7 +27,7 @@ public class UserService {
             throw new UserException("User with this email already exists");
         }
 
-        existingUser = getUserByUsername(user.getUsername());
+        existingUser = userDAO.findByUsername(user.getUsername());
 
         if (existingUser != null) {
             throw new UserException("User with this username already exists");
@@ -38,7 +38,7 @@ public class UserService {
     }
 
     public void validateUser(User user) {
-        User existingUser = getUserByUsername(user.getUsername());
+        User existingUser = userDAO.findByUsername(user.getUsername());
 
         if (existingUser == null) {
             throw new UserException("User does not exist");
@@ -50,12 +50,6 @@ public class UserService {
     }
 
     public User getUserByUsername(String username) {
-        User user = userDAO.findByUsername(username);
-
-        return user;
-    }
-
-    public User getUserByUsernameWrapper(String username) {
         User user = userDAO.findByUsername(username);
 
         if (user == null) {

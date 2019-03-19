@@ -16,6 +16,7 @@ public class BlogController {
     @PostMapping
     public ResponseEntity<?> createBlog(@RequestBody Blog blog) {
         Blog fetchedBlog = blogService.createBlog(blog);
+
         return ResponseEntity.ok().body(fetchedBlog);
     }
 
@@ -27,6 +28,7 @@ public class BlogController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<?> deleteBlogById(@PathVariable Long id) {
         blogService.deleteBlogById(id);
+
         return ResponseEntity.ok().build();
     }
 }

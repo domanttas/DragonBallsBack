@@ -1,6 +1,5 @@
 package com.dragonballs.entities;
 
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;

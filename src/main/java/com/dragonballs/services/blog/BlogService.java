@@ -6,7 +6,6 @@ import com.dragonballs.exceptions.BlogException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,12 +24,7 @@ public class BlogService {
     }
 
     public List<Blog> getBlogs() {
-        List<Blog> blogs = new ArrayList<>();
-
-        for (Blog blog : blogDAO.getBlogs()) {
-            blogs.add(blog);
-        }
-        return blogs;
+        return blogDAO.getBlogs();
     }
 
     public void deleteBlogById(Long id) {

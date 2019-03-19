@@ -198,7 +198,7 @@ public class DeedServiceTest {
 
     @Test
     public void getDeeds_should_return_deed_list() {
-        Iterable<Deed> deeds = new ArrayList<>();
+        List<Deed> deeds = new ArrayList<>();
         ((ArrayList<Deed>) deeds).add(fakedDeed);
 
         Mockito.when(deedDAO.getDeeds()).thenReturn(deeds);

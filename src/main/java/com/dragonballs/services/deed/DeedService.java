@@ -12,7 +12,6 @@ import com.dragonballs.exceptions.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,20 +37,16 @@ public class DeedService {
         deed.setDescription(deedRequest.getDescription());
         deed.setTeamLeadId(deedRequest.getTeamLeadId());
 
-        if (deedRequest.getParticipation() == Participation.PARTICIPATE_AS_TEAM) {
-            if (deedRequest.getTeamUsernames() == null || deedRequest.getTeamUsernames().isEmpty()) {
-                throw new DeedException("No team members provided");
-            }
+        if (deedRequest.getTeamUsernames() == null || deedRequest.getTeamUsernames().isEmpty()) {
+            throw new DeedException("No team members provided");
+        }
 
+        if (deedRequest.getParticipation() == Participation.PARTICIPATE_AS_TEAM) {
             deed.setUsers(deedUtil.fetchUsersInTeam(deedRequest.getTeamUsernames()));
             deed.setClosed(true);
         } else if (deedRequest.getParticipation() == Participation.NOT_INTERESTED) {
             deed.setClosed(false);
         } else if (deedRequest.getParticipation() == Participation.PARTICIPATE_AS_SOLO) {
-            if (deedRequest.getTeamUsernames() == null || deedRequest.getTeamUsernames().isEmpty()) {
-                throw new DeedException("No team members provided");
-            }
-
             try {
                 deed.setUsers(deedUtil.fetchUsersInTeam(deedRequest.getTeamUsernames()));
             } catch (TeamMembersException missingUsersException) {
@@ -105,12 +100,7 @@ public class DeedService {
     }
 
     public List<Deed> getDeeds() {
-        List<Deed> deeds = new ArrayList<>();
 
-        for (Deed deed : deedDAO.getDeeds()) {
-            deeds.add(deed);
-        }
-
-        return deeds;
+        return deedDAO.getDeeds();
     }
 }

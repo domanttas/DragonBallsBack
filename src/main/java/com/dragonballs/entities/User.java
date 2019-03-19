@@ -1,7 +1,6 @@
 package com.dragonballs.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.List;

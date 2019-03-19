@@ -66,7 +66,6 @@ public class DeedControllerTest {
         Long deedId = 5L;
         User fakeUser = user.capture();
         Deed fakeDeed = deed.capture();
-
         Mockito.when(deedService.addUserToDeed(fakeUser, deedId)).thenReturn(fakeDeed);
 
         ResponseEntity result = deedController.addUserToDeed(fakeUser, deedId);
@@ -79,9 +78,7 @@ public class DeedControllerTest {
 
     @Test
     public void updateDeed_should_return_ok() {
-
         Deed fakeDeed = deed.capture();
-
         Mockito.when(deedService.updateDeed(fakeDeed)).thenReturn(fakeDeed);
 
         ResponseEntity result = deedController.updateDeed(fakeDeed);
@@ -91,7 +88,6 @@ public class DeedControllerTest {
 
     @Test
     public void getDeeds_should_return_ok() {
-
         ResponseEntity result = deedController.getDeeds();
 
         Assert.assertEquals(HttpStatus.OK, result.getStatusCode());

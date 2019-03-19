@@ -12,6 +12,9 @@ import org.mockito.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BlogControllerTest {
 
     @Mock
@@ -28,10 +31,14 @@ public class BlogControllerTest {
 
     private Blog fakeBlog;
 
+    private List<Blog> fakeBlogList;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         fakeBlog = blog.capture();
+        fakeBlogList = new ArrayList<>();
+        fakeBlogList.add(fakeBlog);
     }
 
     @Test

@@ -2,8 +2,6 @@ package com.dragonballs.services.deed;
 
 import com.dragonballs.dao.UserDAO;
 import com.dragonballs.entities.User;
-import com.dragonballs.entities.request.DeedRequest;
-import com.dragonballs.exceptions.DeedException;
 import com.dragonballs.exceptions.TeamMembersException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

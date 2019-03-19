@@ -5,6 +5,8 @@ import com.dragonballs.repositories.DeedRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,7 +23,12 @@ public class DeedDAO {
         return deedRepository.save(deed);
     }
 
-    public Iterable<Deed> getDeeds() {
-        return deedRepository.findAll();
+    public List<Deed> getDeeds() {
+        List<Deed> deeds = new ArrayList<>();
+        for (Deed deed : deedRepository.findAll()) {
+            deeds.add(deed);
+        }
+
+        return deeds;
     }
 }

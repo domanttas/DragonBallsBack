@@ -5,6 +5,8 @@ import com.dragonballs.repositories.BlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,8 +19,15 @@ public class BlogDAO {
         return blogRepository.save(blog);
     }
 
-    public Iterable<Blog> getBlogs() {
-        return blogRepository.findAll();
+    public List<Blog> getBlogs() {
+
+        List<Blog> blogs = new ArrayList<>();
+
+        for (Blog blog : blogRepository.findAll()) {
+            blogs.add(blog);
+        }
+
+        return blogs;
     }
 
     public void deleteBlogById(Long id) {
