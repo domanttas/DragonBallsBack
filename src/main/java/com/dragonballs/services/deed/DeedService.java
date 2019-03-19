@@ -100,7 +100,6 @@ public class DeedService {
     }
 
     public List<Deed> getDeeds() {
-
         return deedDAO.getDeeds();
     }
 }

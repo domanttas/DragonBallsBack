@@ -21,8 +21,7 @@ public class UserValidator {
     private static final String EMAIL_REGEX = "\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b";
     private static final String EMAIL_IS_NOT_VALID = "User email is not valid";
 
-    public boolean validate(User user)
-            throws UserException {
+    public boolean validate(User user) {
 
         if (user.getUsername().length() < USERNAME_BOTTOM_MARGIN_VALUE) {
             throw new UserException(USERNAME_BOTTOM_MARGIN);

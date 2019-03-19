@@ -25,7 +25,7 @@ public class UserController {
     public ResponseEntity registerUser(@RequestBody User user) {
         userService.registerUser(user);
 
-        return ResponseEntity.ok().body(null);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping(value = "/auth")
@@ -50,7 +50,7 @@ public class UserController {
             String refreshedToken = jwtTokenUtil.refreshToken(token);
             return ResponseEntity.ok(new JwtAuthenticationResponse(refreshedToken));
         } else {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
     }
 

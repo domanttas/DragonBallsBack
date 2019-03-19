@@ -17,7 +17,6 @@ public class Category {
     @Column(name = "name", nullable = false)
     private String name;
 
-
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Deed> deed;

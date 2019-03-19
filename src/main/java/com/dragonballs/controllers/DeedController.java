@@ -35,7 +35,7 @@ public class DeedController {
     }
 
     @PostMapping(value = "/update")
-    public ResponseEntity<Object> updateDeed(@RequestBody Deed deed) {
+    public ResponseEntity<?> updateDeed(@RequestBody Deed deed) {
         Deed fetchedDeed = deedService.updateDeed(deed);
 
         return ResponseEntity.ok().body(fetchedDeed);
@@ -46,8 +46,8 @@ public class DeedController {
         return ResponseEntity.ok().body(deedService.getDeeds());
     }
 
-    @GetMapping(value = "delete/{id}")
-    public ResponseEntity<Object> deactivateDeed(@PathVariable("id") Long id) {
+    @GetMapping(value = "/delete/{id}")
+    public ResponseEntity<?> deactivateDeed(@PathVariable("id") Long id) {
         deedService.alterDeedStatus(id);
 
         return ResponseEntity.ok().build();
