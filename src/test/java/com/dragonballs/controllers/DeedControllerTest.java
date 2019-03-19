@@ -1,4 +1,4 @@
-package com.dragonballs.controllers.deed;
+package com.dragonballs.controllers;
 
 import com.dragonballs.controllers.DeedController;
 import com.dragonballs.entities.Deed;
@@ -13,6 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 public class DeedControllerTest {
@@ -71,5 +72,28 @@ public class DeedControllerTest {
         ResponseEntity result = deedController.addUserToDeed(fakeUser, deedId);
 
         Assert.assertEquals(ResponseEntity.ok().body(fakeDeed), result);
+    }
+
+
+
+
+    @Test
+    public void updateDeed_should_return_ok() {
+
+        Deed fakeDeed = deed.capture();
+
+        Mockito.when(deedService.updateDeed(fakeDeed)).thenReturn(fakeDeed);
+
+        ResponseEntity result = deedController.updateDeed(fakeDeed);
+
+        Assert.assertEquals(ResponseEntity.ok().body(fakeDeed), result);
+    }
+
+    @Test
+    public void getDeeds_should_return_ok() {
+
+        ResponseEntity result = deedController.getDeeds();
+
+        Assert.assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 }

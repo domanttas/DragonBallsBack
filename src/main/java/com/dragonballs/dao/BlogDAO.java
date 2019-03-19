@@ -15,4 +15,7 @@ public class BlogDAO {
 
     public Blog createBlog(Blog blog) { return blogRepository.save(blog);}
 
+    public Iterable<Blog> getBlogs() {
+        return blogRepository.findAll();
+    }
 }
