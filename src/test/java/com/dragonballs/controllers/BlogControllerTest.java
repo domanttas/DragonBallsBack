@@ -43,5 +43,4 @@ public class BlogControllerTest {
 
         Assert.assertEquals(HttpStatus.OK, result.getStatusCode());
     }
-
 }

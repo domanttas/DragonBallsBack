@@ -41,7 +41,6 @@ public class BlogServiceTest {
 
         MockitoAnnotations.initMocks(this);
 
-
         fakeUser.setUsername("TestUsername");
         fakeUser.setEmail("TestEmail");
         fakeUser.setPasswordHash("TestPassword");
@@ -56,29 +55,8 @@ public class BlogServiceTest {
     public void getBlogs_should_return_blog_list() {
         Iterable<Blog> blogs = new ArrayList<>();
         ((ArrayList<Blog>) blogs).add(fakeBlog);
-
-
         Mockito.when(blogDAO.getBlogs()).thenReturn(blogs);
 
         Assert.assertEquals(blogService.getBlogs(), blogs);
     }
-
-    /*private Long id;
-
-    @Column(name = "image_info")
-    private Byte[] imageBytes;
-
-    @Column(name = "text_field")
-    private String blogText;
-
-    @Column(name = "date")
-    private Date date;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
-
-    @Column(name = "duration")
-    private Long duration;
-*/
 }

@@ -14,5 +14,4 @@ public class BlogDAO {
     public Iterable<Blog> getBlogs() {
         return blogRepository.findAll();
     }
-
 }
