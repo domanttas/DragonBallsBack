@@ -6,6 +6,9 @@ import com.dragonballs.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 @Service
 public class BlogValidator {
 
@@ -21,6 +24,7 @@ public class BlogValidator {
         } else if (blog.getDuration() == 0) {
             throw new BlogException(ALL_FIELD_ARE_REQUIRED);
         }
+
         userService.validateUser(blog.getUser());
         return true;
     }

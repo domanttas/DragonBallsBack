@@ -23,4 +23,10 @@ public class BlogController {
     public ResponseEntity<?> getBlogs() {
         return ResponseEntity.ok().body(blogService.getBlogs());
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<?> deleteBlogById(@PathVariable Long id) {
+        blogService.deleteBlogById(id);
+        return ResponseEntity.ok().build();
+    }
 }

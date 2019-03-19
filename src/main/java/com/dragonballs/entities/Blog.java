@@ -21,7 +21,7 @@ public class Blog {
     @Column(name = "date")
     private Date date;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
