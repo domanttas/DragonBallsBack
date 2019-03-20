@@ -48,6 +48,9 @@ public class Deed {
     @Nullable
     private List<User> users;
 
+    @Column(name = "creator_id")
+    private Long creatorId;
+
     public Long getId() {
         return id;
     }
@@ -127,5 +130,13 @@ public class Deed {
 
     public void setTeamLeadId(@Nullable Long teamLeadId) {
         this.teamLeadId = teamLeadId;
+    }
+
+    public Long getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
     }
 }

@@ -36,6 +36,7 @@ public class DeedService {
         deed.setParticipation(deedRequest.getParticipation());
         deed.setDescription(deedRequest.getDescription());
         deed.setTeamLeadId(deedRequest.getTeamLeadId());
+        deed.setCreatorId(deedRequest.getCreatorId());
 
         if (deedRequest.getTeamUsernames() == null || deedRequest.getTeamUsernames().isEmpty()) {
             throw new DeedException("No team members provided");

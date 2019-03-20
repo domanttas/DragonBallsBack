@@ -26,6 +26,16 @@ public class DeedRequest {
 
     private List<String> teamUsernames;
 
+    private Long creatorId;
+
+    public Long getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
+    }
+
     public String getName() {
         return name;
     }
