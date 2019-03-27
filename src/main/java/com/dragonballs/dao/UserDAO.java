@@ -5,6 +5,8 @@ import com.dragonballs.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserDAO {
 
@@ -23,7 +25,7 @@ public class UserDAO {
         return userRepository.findByUsername(username);
     }
 
-    public Iterable<User> getAllUsers() {
-        return userRepository.findAll();
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
     }
 }

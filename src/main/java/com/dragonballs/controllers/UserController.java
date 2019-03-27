@@ -7,12 +7,11 @@ import com.dragonballs.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.URI;
 
 @RestController
+@RequestMapping("api/user")
 public class UserController {
     private int AUTH_TOKEN_SUBSTRING_VALUE = 7;
 
@@ -22,16 +21,15 @@ public class UserController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @PostMapping(value = "/api/user")
-    public ResponseEntity<Object> registerUser(@RequestBody User user) {
-        User savedUser = userService.registerUser(user);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedUser.getId()).toUri();
-        return ResponseEntity.created(location).build();
+    @PostMapping(value = "/create")
+    public ResponseEntity registerUser(@RequestBody User user) {
+        userService.registerUser(user);
+
+        return ResponseEntity.ok().build();
     }
 
-    @PostMapping(value = "/api/user/auth")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody User user) {
+    @PostMapping(value = "/auth")
+    public ResponseEntity createAuthenticationToken(@RequestBody User user) {
         userService.validateUser(user);
 
         String token = jwtTokenUtil.generateToken(user);
@@ -39,8 +37,8 @@ public class UserController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));
     }
 
-    @GetMapping(value = "/api/user/refresh")
-    public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
+    @GetMapping(value = "/refresh")
+    public ResponseEntity refreshAndGetAuthenticationToken(HttpServletRequest request) {
         String authToken = request.getHeader("Authorization");
 
         String token = authToken.substring(AUTH_TOKEN_SUBSTRING_VALUE);
@@ -52,15 +50,22 @@ public class UserController {
             String refreshedToken = jwtTokenUtil.refreshToken(token);
             return ResponseEntity.ok(new JwtAuthenticationResponse(refreshedToken));
         } else {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
     }
 
-    @GetMapping(value = "/api/user")
+    @GetMapping
     public ResponseEntity<User> getAuthenticatedUserByToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization").substring(AUTH_TOKEN_SUBSTRING_VALUE);
         String username = jwtTokenUtil.getUsernameFromToken(token);
 
         return ResponseEntity.ok().body(userService.getUserByUsername(username));
+    }
+
+    @GetMapping(value = "/{username}")
+    public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
+        User fetchedUser = userService.getUserByUsername(username);
+
+        return ResponseEntity.ok().body(fetchedUser);
     }
 }
